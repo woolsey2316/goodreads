@@ -38,3 +38,7 @@ p {
     margin-bottom: 25px;
     line-height: 1.6;
 }
+
+img {
+    border: 0
+}
