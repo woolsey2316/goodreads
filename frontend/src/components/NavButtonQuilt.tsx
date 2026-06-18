@@ -5,6 +5,8 @@ import discussionsIcon from '../assets/icn_nav_discussions.svg?react';
 import messagesIcon from '../assets/icn_nav_msgs.svg?react';
 import friendIcon from '../assets/icn_nav_friend.svg?react';
 import userImage from '/user.png';
+import { DropdownButton } from './DropdownButton.tsx'
+import { ProfileButton } from './ProfileButton.tsx'
 const Nav = styled.nav`
   display:flex;
   margin-left: 10px;
@@ -31,13 +33,14 @@ const FriendIcon = styled(friendIcon)`
   width: 30px;
   height: 30px;
 `
+
 export const NavButtonQuilt = () => {
   return <Nav>
-    <IconButton Icon={<NotificationIcon />} />
-    <IconButton Icon={<DiscussionsIcon />} />
-    <IconButton Icon={<MessagesIcon />} />
-    <IconButton Icon={<FriendIcon />} />
-    <IconButton Icon={<UserImage src={userImage} alt="user" />} />
+    <DropdownButton notifications={[]} Icon={<NotificationIcon />} />
+    <IconButton to="/discussions" Icon={<DiscussionsIcon />} />
+    <IconButton to="/messages" Icon={<MessagesIcon />} />
+    <IconButton to="/friends" Icon={<FriendIcon />} />
+    <ProfileButton Icon={<UserImage src={userImage} alt="user" />} />
   </Nav>
 
 }
