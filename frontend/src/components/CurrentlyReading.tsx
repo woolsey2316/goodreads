@@ -52,7 +52,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-const UpdatePorgressButton = styled.button`
+const UpdateProgressButton = styled.button`
   margin-top: 4px;
   font-size: 11px;
   padding: 4px 12px;
@@ -101,7 +101,7 @@ const CurrentlyReadingList = ({ readingList }: { readingList: ReadingList[] }) =
       <Wrapper> 
         <CurrentlyReadingItemTitle>{Element.title}</CurrentlyReadingItemTitle>
         <CurrentlyReadingItemAuthor>by {Element.author}</CurrentlyReadingItemAuthor>
-        <UpdatePorgressButton>Update Progress</UpdatePorgressButton>
+        <UpdateProgressButton>Update Progress</UpdateProgressButton>
       </Wrapper>
     </CurrentlyReadingItem>
     )}
@@ -125,6 +125,16 @@ export const CurrentlyReading = () => {
     {
       title: "The Great Gatsby",
       author: "F. Scott Fitzgerald",
+      image: "https://via.placeholder.com/40"
+    },
+    {
+      title: "The City of God",
+      author: "St. Augustine",
+      image: "https://via.placeholder.com/40"
+    },
+    {
+      title: "Computer Systems: A Programmer's Perspective",
+      author: "Randal E. Bryant",
       image: "https://via.placeholder.com/40"
     },
   ]
