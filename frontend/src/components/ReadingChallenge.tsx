@@ -22,6 +22,7 @@ const ReadingChallengeImage = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin-right: 16px;
 `
 const Box = styled.div`
   display: flex;
@@ -53,7 +54,7 @@ const ReadingChallengeTitle = styled.h4`
 const ReadingChallengeDescription = styled.p`
   font-size: 12px;
   color: #666666;
-  margin: 0;
+  margin: 3px 0;
   text-align: start;
 `
 const ProgressBarTrack = styled.div`
@@ -72,8 +73,10 @@ const ProgressBarFill = styled.div<{ $percent: number }>`
   transition: width 0.3s ease;
 `
 const ProgressBarLabel = styled.span`
-  font-size: 12px;
-  color: #666666;
+  color: #333333;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
   margin-top: 4px;
 `
 const ReadingChallengeButton = styled.a`
