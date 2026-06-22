@@ -22,7 +22,7 @@ const Heading = styled.h3`
 const ImageList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0px;
+  gap: 4px;
 `
 const Link = styled.a`
   display: block;

@@ -16,13 +16,13 @@ const MainContent = styled.div`
   justify-content: space-between;
 `
 const SecondaryColumn = styled.div`
-  width: 300px;
+  width: 400px;
 `
 const PrimaryColumn = styled.div`
   width: 600px;
 `
 const TertiaryColumn = styled.div`
-  width: 200px;
+  width: 300px;
 `
 export const Home = () => {
   return <OuterPage>
