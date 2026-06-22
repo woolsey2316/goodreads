@@ -28,6 +28,8 @@ const Box = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  flex: 1;
+  min-width: 0;
 `
 const ReadingChallengeStatus = styled.div`
   font-size: 28px;
@@ -54,6 +56,26 @@ const ReadingChallengeDescription = styled.p`
   margin: 0;
   text-align: start;
 `
+const ProgressBarTrack = styled.div`
+  width: 100%;
+  height: 8px;
+  background-color: #E8E8E8;
+  border-radius: 4px;
+  margin-top: 12px;
+  overflow: hidden;
+`
+const ProgressBarFill = styled.div<{ $percent: number }>`
+  height: 100%;
+  width: ${({ $percent }) => $percent}%;
+  background-color: #00635D;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+`
+const ProgressBarLabel = styled.span`
+  font-size: 12px;
+  color: #666666;
+  margin-top: 4px;
+`
 const ReadingChallengeButton = styled.a`
   color: #00635D;
   cursor: pointer;
@@ -63,6 +85,7 @@ export const ReadingChallenge = () => {
   let books_read = 10;
   let goal_books_read = 20
   let expected_books_read = Math.floor(new Date().getMonth() / 12 * goal_books_read);
+  let progress_percent = Math.min(100, Math.round((books_read / goal_books_read) * 100));
   return <Section>
     <Heading>Reading Challenge</Heading>
     <Wrapper>
@@ -70,6 +93,10 @@ export const ReadingChallenge = () => {
       <Box>
         <ReadingChallengeStatus>{books_read}</ReadingChallengeStatus>
         <ReadingChallengeTitle>Books completed</ReadingChallengeTitle>
+        <ProgressBarTrack>
+          <ProgressBarFill $percent={progress_percent} />
+        </ProgressBarTrack>
+        <ProgressBarLabel>{progress_percent}% of {goal_books_read} book goal</ProgressBarLabel>
         <ReadingChallengeDescription>{behind_or_ahead_of_schedule(expected_books_read, books_read)}</ReadingChallengeDescription>  
         <ReadingChallengeButton>View Challenge</ReadingChallengeButton>
       </Box>
