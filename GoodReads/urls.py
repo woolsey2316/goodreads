@@ -20,8 +20,12 @@ from books.views import home_view
 from books.views import book_detail_view
 from books.views import current_user_view
 from books.views import shelves_view
+from books.views import signup_view
+from books.views import signin_view
 urlpatterns = [
    path('admin/', admin.site.urls),
+   path('api/auth/signup/', signup_view),
+   path('api/auth/signin/', signin_view),
    path('api/user/', current_user_view),
    path('api/users/<int:user_id>/shelves/', shelves_view),
    path('', home_view),

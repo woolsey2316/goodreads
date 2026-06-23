@@ -1,7 +1,7 @@
-import { FormEvent, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
 import styled from 'styled-components'
 import { NavBar } from '../components/Navbar.tsx'
+import { useAuth } from '../context/AuthContext.tsx'
 import { useShelves } from '../hooks/useShelves.ts'
 
 const OuterPage = styled.div`
@@ -90,8 +90,8 @@ const EmptyMessage = styled.p`
 `
 
 export const MyBooks = () => {
-  const { user_id } = useParams<{ user_id: string }>()
-  const { shelves, isLoading, createShelf } = useShelves(user_id)
+  const { userId } = useAuth()
+  const { shelves, isLoading, createShelf } = useShelves(userId ?? undefined)
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -109,13 +109,13 @@ export const MyBooks = () => {
     }
   }
 
-  if (isLoading || !user_id) {
+  if (isLoading || !userId) {
     return null
   }
 
   return (
     <OuterPage>
-      <NavBar user_id={user_id} />
+      <NavBar user_id={userId} />
       <MainContent>
         <Heading>My Books</Heading>
         <CreateForm onSubmit={handleSubmit}>

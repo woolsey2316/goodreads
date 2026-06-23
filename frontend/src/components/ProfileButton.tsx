@@ -72,7 +72,7 @@ export const ProfileButton = ({ Icon }: { Icon: React.ReactNode }) => {
       <BreakLine></BreakLine>
       <DropdownMenuItem to="/account-settings">Account Settings</DropdownMenuItem>
       <DropdownMenuItem to="/help">Help</DropdownMenuItem>
-      <DropdownMenuItem to="/signout">Signout</DropdownMenuItem>
+      <DropdownMenuItem to="/signout">Sign out</DropdownMenuItem>
     </DropdownMenu>
   </OuterContainer>
 }

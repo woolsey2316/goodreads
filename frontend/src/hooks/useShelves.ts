@@ -1,4 +1,5 @@
 import useSWR, { mutate } from 'swr'
+import { authFetch } from '../lib/auth.ts'
 
 export interface Shelf {
   shelf_id: number
@@ -7,7 +8,7 @@ export interface Shelf {
 }
 
 const fetcher = (url: string) =>
-  fetch(url).then((res) => {
+  authFetch(url).then((res) => {
     if (!res.ok) throw new Error('Failed to fetch shelves')
     return res.json() as Promise<Shelf[]>
   })
@@ -18,9 +19,8 @@ export const useShelves = (userId: string | undefined) => {
 
   const createShelf = async (name: string) => {
     if (!userId) return
-    const res = await fetch(`/api/users/${userId}/shelves/`, {
+    const res = await authFetch(`/api/users/${userId}/shelves/`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name }),
     })
     if (!res.ok) throw new Error('Failed to create shelf')
