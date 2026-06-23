@@ -1,0 +1,31 @@
+import useSWR, { mutate } from 'swr'
+
+export interface Shelf {
+  shelf_id: number
+  name: string
+  book_ids: number[]
+}
+
+const fetcher = (url: string) =>
+  fetch(url).then((res) => {
+    if (!res.ok) throw new Error('Failed to fetch shelves')
+    return res.json() as Promise<Shelf[]>
+  })
+
+export const useShelves = (userId: string | undefined) => {
+  const shelvesKey = userId ? `/api/users/${userId}/shelves/` : null
+  const { data, error, isLoading } = useSWR<Shelf[]>(shelvesKey, fetcher)
+
+  const createShelf = async (name: string) => {
+    if (!userId) return
+    const res = await fetch(`/api/users/${userId}/shelves/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    })
+    if (!res.ok) throw new Error('Failed to create shelf')
+    await mutate(shelvesKey)
+  }
+
+  return { shelves: data ?? [], error, isLoading, createShelf }
+}

@@ -1,9 +1,17 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
 class GoodreadsUser(models.Model):
    user_id = models.BigAutoField(primary_key=True)
    username = models.CharField(max_length=150, unique=True)
+
+
+class Shelf(models.Model):
+    shelf_id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    book_ids = ArrayField(models.BigIntegerField(), default=list, blank=True)
+    user = models.ForeignKey(GoodreadsUser, on_delete=models.CASCADE, related_name='shelves')
 
 
 class Books(models.Model):
