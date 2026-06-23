@@ -78,7 +78,7 @@ const Span = styled.span`
   padding-bottom: 4px;
 `
 
-export const NavList = () => {
+export const NavList = ({ user_id }: { user_id: string }) => {
 return <Nav>
   <UL>
   <LI>
@@ -87,7 +87,7 @@ return <Nav>
       </Link>
   </LI>
   <LI>
-      <Link to="/review/list">
+      <Link to={`/review/list/${user_id}`}>
       My Books
       </Link>
   </LI>

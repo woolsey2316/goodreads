@@ -4,6 +4,11 @@ import { CurrentlyReading } from '../components/CurrentlyReading.tsx'
 import { ReadingChallenge } from '../components/ReadingChallenge.tsx'
 import { WantToRead } from '../components/WantToRead.tsx'
 import { BookShelves } from '../components/BookShelves.tsx'
+import { Updates } from '../components/Updates.tsx'
+import { NewsAndInterviews } from '../components/NewsAndInterviews.tsx'
+import { Recommendations } from '../components/Recommendations.tsx'
+import { Footer } from '../components/Footer.tsx'
+import { useUserId } from '../hooks/useUserId.ts'
 const OuterPage = styled.div`
   width: 100vw;
 `
@@ -25,8 +30,14 @@ const TertiaryColumn = styled.div`
   width: 300px;
 `
 export const Home = () => {
+  const { userId, isLoading } = useUserId()
+
+  if (isLoading || !userId) {
+    return null
+  }
+
   return <OuterPage>
-    <NavBar />
+    <NavBar user_id={userId} />
     <MainContent>
       <SecondaryColumn>
         <CurrentlyReading />
@@ -34,8 +45,14 @@ export const Home = () => {
         <WantToRead />
         <BookShelves />
       </SecondaryColumn>
-      <PrimaryColumn></PrimaryColumn>
-      <TertiaryColumn></TertiaryColumn>
+      <PrimaryColumn>
+        <Updates/>
+      </PrimaryColumn>
+      <TertiaryColumn>
+        <NewsAndInterviews />
+        <Recommendations />
+        <Footer />
+      </TertiaryColumn>
     </MainContent>
   </OuterPage>
 }

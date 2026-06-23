@@ -36,7 +36,7 @@ const IconWrapperLink = styled.a`
   margin: 0 16px 0 15px;
   height: 50px;
 `
-export const NavBar = () => {
+export const NavBar = ({ user_id }: { user_id: string }) => {
   const [active, setActive] = useState(false);
 
   return (
@@ -47,14 +47,14 @@ export const NavBar = () => {
             <GoodReadsIcon />
           </IconWrapperLink>
           <IsDesktop>
-            <NavList />
+            <NavList user_id={user_id} />
           </IsDesktop>
           <SearchBar />
           <NavButtonQuilt />
         </InnerContainer>
       </OuterContainer>
       <IsMobile>
-        <NavList />
+        <NavList user_id={user_id} />
       </IsMobile>
     </>
 

@@ -53,6 +53,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 const UpdateProgressButton = styled.button`
+  width: 111px;
   margin-top: 4px;
   font-size: 11px;
   padding: 4px 12px;
@@ -95,7 +96,7 @@ const Dot = styled.span`
 `
 const CurrentlyReadingList = ({ readingList }: { readingList: ReadingList[] }) => {
   return <ReadingListContainer>
-    {readingList.map((Element: ReadingList) => 
+    {readingList.slice(0, 3).map((Element: ReadingList) => 
     <CurrentlyReadingItem key={Element.title}>
       <CurrentlyReadingItemImage src={Element.image} alt="Currently Reading" />
       <Wrapper> 

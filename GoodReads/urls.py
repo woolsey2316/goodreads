@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from books.views import home_view
 from books.views import book_detail_view
+from books.views import current_user_view
 urlpatterns = [
    path('admin/', admin.site.urls),
+   path('api/user/', current_user_view),
    path('', home_view),
    path('books/<int:book_id>', book_detail_view)
 ]

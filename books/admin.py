@@ -1,3 +1,5 @@
 from django.contrib import admin
+from books.models import GoodreadsUser, Books
 
-# Register your models here.
+admin.site.register(GoodreadsUser)
+admin.site.register(Books)
