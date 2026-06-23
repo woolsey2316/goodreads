@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from books.views import home_view
 from books.views import book_detail_view
 from books.views import current_user_view
 from books.views import shelves_view
@@ -28,6 +27,5 @@ urlpatterns = [
    path('api/auth/signin/', signin_view),
    path('api/user/', current_user_view),
    path('api/users/<int:user_id>/shelves/', shelves_view),
-   path('', home_view),
    path('books/<int:book_id>', book_detail_view)
 ]

@@ -9,6 +9,7 @@ pkgs.mkShell {
       ps.django
       ps.psycopg  # Modern PostgreSQL adapter for Python 3
       ps.pyjwt
+      ps.pip
     ]))
 
     # PostgreSQL server and client binaries (psql, initdb, etc.)
