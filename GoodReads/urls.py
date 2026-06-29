@@ -19,6 +19,8 @@ from django.urls import path
 from books.views import book_detail_view
 from books.views import current_user_view
 from books.views import shelves_view
+from books.views import shelf_add_book_view
+from books.views import search_books_view
 from books.views import signup_view
 from books.views import signin_view
 from django.conf import settings
@@ -28,7 +30,9 @@ urlpatterns = [
    path('api/auth/signup/', signup_view),
    path('api/auth/signin/', signin_view),
    path('api/user/', current_user_view),
+   path('api/books/search/', search_books_view),
    path('api/users/<int:user_id>/shelves/', shelves_view),
+   path('api/users/<int:user_id>/shelves/<int:shelf_id>/books/', shelf_add_book_view),
    path('books/<int:book_id>', book_detail_view)
 ]
 if settings.DEBUG:

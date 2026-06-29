@@ -27,5 +27,15 @@ export const useShelves = (userId: string | undefined) => {
     await mutate(shelvesKey)
   }
 
-  return { shelves: data ?? [], error, isLoading, createShelf }
+  const addBookToShelf = async (shelfId: number, bookId: number) => {
+    if (!userId) return
+    const res = await authFetch(`/api/users/${userId}/shelves/${shelfId}/books/`, {
+      method: 'POST',
+      body: JSON.stringify({ book_id: bookId }),
+    })
+    if (!res.ok) throw new Error('Failed to add book to shelf')
+    await mutate(shelvesKey)
+  }
+
+  return { shelves: data ?? [], error, isLoading, createShelf, addBookToShelf }
 }

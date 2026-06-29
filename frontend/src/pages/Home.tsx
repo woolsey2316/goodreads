@@ -9,6 +9,7 @@ import { NewsAndInterviews } from '../components/NewsAndInterviews.tsx'
 import { Recommendations } from '../components/Recommendations.tsx'
 import { Footer } from '../components/Footer.tsx'
 import { useUserId } from '../hooks/useUserId.ts'
+
 const OuterPage = styled.div`
 
 `

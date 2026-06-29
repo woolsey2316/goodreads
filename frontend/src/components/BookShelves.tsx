@@ -61,12 +61,12 @@ export const BookShelves = () => {
     <FlexContainer>
       <BookCountContainer>
         {shelves.map((shelf) => (
-          <Link to={`/review/${shelf.shelf_id}`}>{shelf.count}</Link>
+          <Link key={shelf.shelf_id} to={`/review/${shelf.shelf_id}`}>{shelf.count}</Link>
         ))}
       </BookCountContainer>
       <BookNameContainer>
         {shelves.map((shelf) => (
-          <BookLink to={`/review/${shelf.shelf_id}`}>{shelf.name}</BookLink>
+          <BookLink key={shelf.shelf_id} to={`/review/${shelf.shelf_id}`}>{shelf.name}</BookLink>
         ))}
       </BookNameContainer>
     </FlexContainer>

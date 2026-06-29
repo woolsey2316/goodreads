@@ -1,11 +1,12 @@
 import json
 
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from books.auth_utils import create_token, get_user_from_request, hash_password, verify_password
-from books.models import GoodreadsUser, Shelf
+from books.models import Books, GoodreadsUser, Shelf
 
 
 def home_view(request, *args, **kwargs):
@@ -115,4 +116,69 @@ def shelves_view(request, user_id):
             "book_ids": shelf.book_ids,
         },
         status=201,
+    )
+
+
+@require_http_methods(["GET"])
+def search_books_view(request):
+    user = get_user_from_request(request)
+    if user is None:
+        return JsonResponse({"error": "Unauthorized"}, status=401)
+
+    query = request.GET.get("q", "").strip()
+    if not query:
+        return JsonResponse([], safe=False)
+
+    books = Books.objects.filter(
+        Q(title__icontains=query) | Q(authors__icontains=query)
+    ).order_by("title")[:20]
+
+    data = [
+        {
+            "book_id": book.book_id,
+            "title": book.title,
+            "authors": book.authors,
+            "image_url": book.image_url,
+            "average_rating": book.average_rating,
+        }
+        for book in books
+    ]
+    return JsonResponse(data, safe=False)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def shelf_add_book_view(request, user_id, shelf_id):
+    user = get_user_from_request(request)
+    if user is None:
+        return JsonResponse({"error": "Unauthorized"}, status=401)
+
+    if user.user_id != user_id:
+        return JsonResponse({"error": "Forbidden"}, status=403)
+
+    try:
+        shelf = Shelf.objects.get(shelf_id=shelf_id, user=user)
+    except Shelf.DoesNotExist:
+        return JsonResponse({"error": "Shelf not found"}, status=404)
+
+    body = json.loads(request.body)
+    book_id = body.get("book_id")
+    try:
+        book_id = int(book_id)
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "book_id is required"}, status=400)
+
+    if not Books.objects.filter(book_id=book_id).exists():
+        return JsonResponse({"error": "Book not found"}, status=404)
+
+    if book_id not in shelf.book_ids:
+        shelf.book_ids.append(book_id)
+        shelf.save(update_fields=["book_ids"])
+
+    return JsonResponse(
+        {
+            "shelf_id": shelf.shelf_id,
+            "name": shelf.name,
+            "book_ids": shelf.book_ids,
+        }
     )
