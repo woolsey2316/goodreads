@@ -21,6 +21,8 @@ from books.views import current_user_view
 from books.views import shelves_view
 from books.views import signup_view
 from books.views import signin_view
+from django.conf import settings
+from django.urls import include, path
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('api/auth/signup/', signup_view),
@@ -29,3 +31,8 @@ urlpatterns = [
    path('api/users/<int:user_id>/shelves/', shelves_view),
    path('books/<int:book_id>', book_detail_view)
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

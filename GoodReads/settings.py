@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -103,6 +104,28 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+if DEBUG:
+    # 1. Add to installed apps
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
+
+    # 2. Add middleware (Must be placed as early as possible)
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ] + MIDDLEWARE
+
+    # 3. Configure Internal IPs for NixOS local environments
+    # This automatically includes your local containers/virtual interfaces
+    INTERNAL_IPS = [
+        "127.0.0.1",
+        "10.0.2.2",
+    ]
+    
+    # Dynamic IP trick for NixOS/Docker setups
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS += [ip[:-1] + "1" for ip in ips] + ips
 
 
 # Internationalization

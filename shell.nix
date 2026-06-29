@@ -7,6 +7,7 @@ pkgs.mkShell {
     # Python 3.13 bundled with Django and the Postgres adapter
     (pkgs.python313.withPackages (ps: [
       ps.django
+      ps.django-debug-toolbar
       ps.psycopg  # Modern PostgreSQL adapter for Python 3
       ps.pyjwt
       ps.pip

@@ -10,7 +10,7 @@ import { Recommendations } from '../components/Recommendations.tsx'
 import { Footer } from '../components/Footer.tsx'
 import { useUserId } from '../hooks/useUserId.ts'
 const OuterPage = styled.div`
-  width: 100vw;
+
 `
 const MainContent = styled.div`
   @media (min-width: 1220px) {
@@ -32,7 +32,7 @@ const TertiaryColumn = styled.div`
 export const Home = () => {
   const { userId, isLoading } = useUserId()
 
-  if (isLoading || !userId) {
+  if (isLoading) {
     return null
   }
 
